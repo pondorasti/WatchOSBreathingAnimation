@@ -24,9 +24,10 @@ struct FlowerView: View {
     /// The amount of rotation in degrees when the breathing animation starts.
     var breathingRotationDegrees: Double = -90
 
-    /// The color of each petal. It is reccomended to also include the opacity for an overlap effect.
+    /// The color of each petal. It is recommended to also use opacity to create an overlap effect.
     var color = Color(UIColor.cyan).opacity(0.6)
 
+    /// This represents the amount of rotation needed for each petal
     private var currentPetalAngle: Double {
         return 360 / numberOfPetals
     }
@@ -70,6 +71,7 @@ struct FlowerView: View {
                                     anchor: self.isMinimized ? .center : .leading)
             }
         }
+        // Center the view along the center of the Flower
         .offset(x: isMinimized ? 0 : circleDiameter / 2)
 
         // create a frame around the flower, not mandatory, but nicer
@@ -78,17 +80,10 @@ struct FlowerView: View {
         .rotationEffect(.degrees(isMinimized ? breathingRotationDegrees : 0))
         .scaleEffect(isMinimized ? scaleAmount : 1)
 
-        // Dabbled with a custom asymmetric timingCurve, kinda failed
-        //0.85, 0, 0.75, 1
-        .animation(Animation.timingCurve(isMinimized ? 0.85 : 0.5,
-                                         0,
-                                         isMinimized ? 0.75 : 0.5,
-                                         1, duration: animationDuration))
+        // smoothly animate any change to the Flower
+        .animation(.easeInOut(duration: animationDuration))
 
-            
-//        .animation(.easeInOut(duration: animationDuration))
-
-        //The purpose of the code bellow is to align the orientation to perfectly match Apple's implementation
+        // The purpose of the code bellow is to align the orientation to perfectly match Apple's implementation
         .rotationEffect(.degrees(-60))
         .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
     }
@@ -133,3 +128,10 @@ struct FlowerView_Previews: PreviewProvider {
 
 // isAnimating/isBreathing - keep track of breathing animation
 // isMinimized - breathing animation state
+
+// Dabbled with a custom asymmetric timingCurve, kinda failed
+// 0.85, 0, 0.75, 1
+// .animation(Animation.timingCurve(isMinimized ? 0.85 : 0.5,
+//                                 0,
+//                                 isMinimized ? 0.75 : 0.5,
+//                                 1, duration: animationDuration))
