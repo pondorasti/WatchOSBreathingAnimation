@@ -11,18 +11,15 @@ import SwiftUI
 struct ContentView: View {
     @State private var numberOfPetals: Double = 5
     @State private var isMinimized = false
-    @State private var animationDuration = 0.5
+    @State private var animationDuration = petalDuration
 
     /// Duration of the breathing animation
     @State private var breathDuration = 4.2
 
-    /**
-     Duration of the insertion/deletion animation for petals
+    /// Duration of addition/removal animation for petals
+    static let petalDuration = 0.5
 
-     Since this action is controlled by dragging a slider it might sound redundant to add an animation duration, but the flower also has built in support for snapping to the next petal or the current one, depending on the amount of travel.
-     */
-    private var petalDuration = 0.5
-
+    /// Duration of the BlurFade transition based on the **breathingAnimation**
     private var fadeDuration: Double {
         return breathDuration * 0.6
     }
@@ -30,6 +27,7 @@ struct ContentView: View {
     var body: some View {
         List {
             Section {
+                // Flower
                 ZStack {
                     if !isMinimized { // second lil' hack
                         FlowerView(isMinimized: $isMinimized,
@@ -41,7 +39,7 @@ struct ContentView: View {
                                 removal: AnyTransition.blurFade.animation(Animation.easeIn(duration: fadeDuration))
                             )
                             /**
-                             General Observation
+                             General Observation - use real devices for best results
                              Asymmetric Transitions are sometimes buggy, this includes:
                                 - animationDuration is not always updated prior to a change
                                 - the removal transition is used for an insertion
@@ -53,7 +51,7 @@ struct ContentView: View {
                     FlowerView(isMinimized: $isMinimized,
                                numberOfPetals: $numberOfPetals,
                                animationDuration: $animationDuration,
-                               color: Color.black
+                               color: Color(UIColor.black)
                     )
 
                     // Main FlowerView
@@ -61,8 +59,10 @@ struct ContentView: View {
                                numberOfPetals: $numberOfPetals,
                                animationDuration: $animationDuration)
                 }
+
+                // align the flower nicely
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 32)
+                .padding(.vertical, 64)
             }
 
             // Number of Petals
@@ -91,7 +91,7 @@ struct ContentView: View {
                     }
 
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2 * self.animationDuration) {
-                        self.animationDuration = self.petalDuration
+                        self.animationDuration = ContentView.petalDuration
                     }
                 }) {
                     Text("Breath")
@@ -102,6 +102,8 @@ struct ContentView: View {
             .foregroundColor(.white)
             .listRowBackground(Color(UIColor.systemBlue))
         }
+
+        // making the list look nice :]
         .listStyle(GroupedListStyle())
         .environment(\.horizontalSizeClass, .regular)
     }

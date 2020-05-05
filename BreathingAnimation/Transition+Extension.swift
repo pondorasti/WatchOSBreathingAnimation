@@ -24,7 +24,7 @@ struct BlurFadeModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .scaleEffect(isActive ? 1.5 : 1)
+            .scaleEffect(isActive ? 1.5 : 1) // lagging behind effect
             .blur(radius: isActive ? 8 : 0)
             .opacity(isActive ? 0 : 0.7)
     }

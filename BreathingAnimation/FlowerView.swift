@@ -16,26 +16,23 @@ struct FlowerView: View {
     @Binding var animationDuration: Double
 
     /// The diameter of each petal.
-    var circleDiameter: CGFloat = 80
-
-    /// The amount of scaling applied to the flower when the breathing animation starts.
-    var scaleAmount: CGFloat = 0.3
-
-    /// The amount of rotation in degrees when the breathing animation starts.
-    var breathingRotationDegrees: Double = -90
+    let circleDiameter: CGFloat = 160
 
     /// The color of each petal. It is recommended to also use opacity to create an overlap effect.
     var color = Color(UIColor.cyan).opacity(0.6)
 
-    /// This represents the amount of rotation needed for each petal
-    private var currentPetalAngle: Double {
+    /// This represents the absolute amount of rotation needed for each petal
+    private var absolutePetalAngle: Double {
         return 360 / numberOfPetals
     }
 
     /**
      Calculates the opacity for the petal that is being added/removed.
 
-     This is achieved by calculating the amount of travel in **degrees** that the petal needs to travel in order to be completely added to the flower and comparing it with the *nextAngle*. Afterwards converting this to a 0 to 1 scale.
+     This is achieved by calculating the amount of travel in **degrees**
+     that the petal needs to travel in order to be completely added
+     to the flower and comparing it with the **nextAngle**.
+     Afterwards converting this to a 0 to 1 scale.
      */
     private var opacityPercentage: Double {
         let numberOfPetals = self.numberOfPetals.rounded(.down)
@@ -43,7 +40,7 @@ struct FlowerView: View {
         let currentAbsoluteAngle = 360 / numberOfPetals
 
         let totalTravel = currentAbsoluteAngle - nextAngle
-        let currentProgress = currentPetalAngle - nextAngle
+        let currentProgress = absolutePetalAngle - nextAngle
         let percentage = currentProgress / totalTravel
 
         return 1 - percentage
@@ -52,13 +49,13 @@ struct FlowerView: View {
     var body: some View {
         ZStack() {
             /**
-             Intentionally showing an extra petal by using x...y
+             Intentionally showing an extra petal by using 0...Count, instead of 0..<Count
 
              This allows for the following actions:
                 - Instantly animate opacity change to the extra petal
                 - Snap to the next or current petal
              */
-            ForEach(0...Int(numberOfPetals), id: \.self) { // first lil' hack
+            ForEach(0...Int(numberOfPetals), id: \.self) {
                 Circle() // Petal
                     .frame(width: self.circleDiameter, height: self.circleDiameter)
                     .foregroundColor(self.color)
@@ -67,18 +64,19 @@ struct FlowerView: View {
                     .opacity($0 == Int(self.numberOfPetals) ? self.opacityPercentage : 1)
 
                     // rotate the petal around it's leading anchor to create the flower
-                    .rotationEffect(.degrees(self.currentPetalAngle * Double($0)),
+                    .rotationEffect(.degrees(self.absolutePetalAngle * Double($0)),
                                     anchor: self.isMinimized ? .center : .leading)
             }
         }
         // Center the view along the center of the Flower
         .offset(x: isMinimized ? 0 : circleDiameter / 2)
 
-        // create a frame around the flower, not mandatory, but nicer
+        // create a frame around the flower,
+        // helful for adding padding around the whole flower
         .frame(width: circleDiameter * 2, height: circleDiameter * 2)
 
-        .rotationEffect(.degrees(isMinimized ? breathingRotationDegrees : 0))
-        .scaleEffect(isMinimized ? scaleAmount : 1)
+        .rotationEffect(.degrees(isMinimized ? -90 : 0))
+        .scaleEffect(isMinimized ? 0.3 : 1)
 
         // smoothly animate any change to the Flower
         .animation(.easeInOut(duration: animationDuration))
@@ -135,3 +133,5 @@ struct FlowerView_Previews: PreviewProvider {
 //                                 0,
 //                                 isMinimized ? 0.75 : 0.5,
 //                                 1, duration: animationDuration))
+
+
