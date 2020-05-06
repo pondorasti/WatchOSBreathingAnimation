@@ -10,6 +10,6 @@ This is project is a recreation of Apple's breathing animation. I have created t
 ## App Preview
 
 <p align="center">
-   <image src="https://media.giphy.com/media/Uue7dsw0aUwlJWdkW6/giphy.gif" width="800">
+   <image src="https://github.com/Pondorasti/WatchOSBreathingAnimation/blob/master/BreathingAnimation.gif" width="800">
 </p>
 
