@@ -1,6 +1,6 @@
 # WatchOSBreathingAnimation
 
-This is project is a recreation of Apple's breathing animation. I have created this to check out SwiftUI's capabilities and power when it comes to creating complex animations. If you are interested in the process of making this you can check out my articles.
+This is project is a recreation of Apple's breathing animation. I have created this to check out SwiftUI's capabilities and power when it comes to creating complex animations. If you are interested in the process of making this animation, you can check out my articles.
 
 ## Article Series
 
