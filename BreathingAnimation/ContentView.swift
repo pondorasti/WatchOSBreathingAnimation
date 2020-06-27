@@ -70,7 +70,7 @@ struct ContentView: View {
                 Slider(value: $numberOfPetals, in: 2...10) { onEditingChanged in
                     // detect when interaction with the slider is done and engage snapping to the closest petal
                     if !onEditingChanged {
-                        self.numberOfPetals = self.numberOfPetals.rounded()
+                        numberOfPetals = numberOfPetals.rounded()
                     }
                 }
             }
@@ -83,15 +83,15 @@ struct ContentView: View {
             // Breath Button
             Section {
                 Button(action: {
-                    self.animationDuration = self.breathDuration
-                    self.isMinimized.toggle()
+                    animationDuration = breathDuration
+                    isMinimized.toggle()
 
-                    DispatchQueue.main.asyncAfter(deadline: .now() + self.animationDuration) {
-                        self.isMinimized.toggle()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) {
+                        isMinimized.toggle()
                     }
 
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2 * self.animationDuration) {
-                        self.animationDuration = ContentView.petalDuration
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2 * animationDuration) {
+                        animationDuration = ContentView.petalDuration
                     }
                 }) {
                     Text("Breath")
@@ -104,8 +104,7 @@ struct ContentView: View {
         }
 
         // making the list look nice :]
-        .listStyle(GroupedListStyle())
-        .environment(\.horizontalSizeClass, .regular)
+        .listStyle(InsetGroupedListStyle())
     }
 }
 

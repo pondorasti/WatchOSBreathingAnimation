@@ -295,10 +295,10 @@
 				CODE_SIGN_ENTITLEMENTS = BreathingAnimation/BreathingAnimation.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"BreathingAnimation/Preview Content\"";
-				DEVELOPMENT_TEAM = UALV34MRH2;
+				DEVELOPMENT_TEAM = WH4QW9ND3J;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BreathingAnimation/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -307,7 +307,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Debug;
 		};
@@ -318,10 +318,10 @@
 				CODE_SIGN_ENTITLEMENTS = BreathingAnimation/BreathingAnimation.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"BreathingAnimation/Preview Content\"";
-				DEVELOPMENT_TEAM = UALV34MRH2;
+				DEVELOPMENT_TEAM = WH4QW9ND3J;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BreathingAnimation/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -330,7 +330,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Release;
 		};

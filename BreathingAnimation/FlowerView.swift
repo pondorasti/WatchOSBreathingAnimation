@@ -57,15 +57,16 @@ struct FlowerView: View {
              */
             ForEach(0...Int(numberOfPetals), id: \.self) {
                 Circle() // Petal
-                    .frame(width: self.circleDiameter, height: self.circleDiameter)
-                    .foregroundColor(self.color)
+                    .frame(width: circleDiameter, height: circleDiameter)
+                    .foregroundColor(color)
 
                     // animate opacity only to the petal being added/removed
-                    .opacity($0 == Int(self.numberOfPetals) ? self.opacityPercentage : 1)
+                    .opacity($0 == Int(numberOfPetals) ? opacityPercentage : 1)
 
                     // rotate the petal around it's leading anchor to create the flower
-                    .rotationEffect(.degrees(self.absolutePetalAngle * Double($0)),
-                                    anchor: self.isMinimized ? .center : .leading)
+                    .rotationEffect(
+                        .degrees(absolutePetalAngle * Double($0)),
+                                    anchor: isMinimized ? .center : .leading)
             }
         }
         // Center the view along the center of the Flower
